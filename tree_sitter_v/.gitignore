@@ -3,14 +3,16 @@
 /build
 /target
 
-bindings/node/
-bindings/rust/
+bindings/**
+!bindings/v
 binding.gyp
 
 Cargo.toml
 Cargo.lock
-yarn.lock
 package-lock.json
+Package.swift
+pyproject.toml
+setup.py
 *.log
 
 # Ignore common editor/system specific metadata

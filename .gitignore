@@ -1,5 +1,9 @@
 # Binaries for programs and plugins
 main
+/v-analyzer
+/tree-sitter
+/install
+/test
 **/*.exe
 **/*.exp
 **/*.exe~
@@ -28,7 +32,3 @@ cache
 
 # vweb and database
 *.db
-
-# generated executables on unix:
-install
-cmd/v-analyzer/v-analyzer

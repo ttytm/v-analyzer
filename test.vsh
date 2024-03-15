@@ -14,6 +14,7 @@ fn exec(cmd string, work_folder string, args ...string) &os.Process {
 }
 
 // Make sure tree-sitter is executable.
+// TODO:
 ts_path := find_abs_path_of_executable(utils.ts_bin) or {
 	if exists(utils.ts_bin) {
 		utils.ts_bin
@@ -22,7 +23,7 @@ ts_path := find_abs_path_of_executable(utils.ts_bin) or {
 			eprintln(err)
 			exit(1)
 		}
-		utils.ts_bin
+		utils.ts_bin_path
 	}
 }
 

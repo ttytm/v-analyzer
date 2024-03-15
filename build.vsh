@@ -27,6 +27,8 @@ fn errorln(msg string) {
 	eprintln('${term.red('[ERROR]')} ${msg}')
 }
 
+// TODO: generate parser
+
 fn (m ReleaseMode) compile_cmd() string {
 	base_build_cmd := '${@VEXE} ${code_path} -o ${bin_path} -no-parallel'
 	cc := if v := os.getenv_opt('CC') {

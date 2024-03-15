@@ -1,7 +1,9 @@
 # Ignore irrelevant and generated outputs
-/src
-/build
-/target
+/src/
+/build/
+/target/
+/tree-sitter
+/tree-sitter-*.gz
 
 bindings/**
 !bindings/v

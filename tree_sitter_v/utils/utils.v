@@ -5,10 +5,10 @@ import v.pref
 import net.http
 
 pub const ts_bin = 'tree-sitter'
+pub const ts_bin_path = os.join_path(@VMODROOT, ts_bin)
 const platform = pref.get_host_os()
 const arch = pref.get_host_arch()
-// TODO: use fixed ts version
-// TODO: check current version and use one version accross platfroms to build it
+// NOTE: keeping the latest official release for now.
 const base_url = 'https://github.com/tree-sitter/tree-sitter/releases/latest/download/'
 const archives = {
 	pref.OS.linux: {
@@ -27,6 +27,10 @@ const archives = {
 	}
 }
 
+pub fn check_version() {
+	// https://api.github.com/repos/tree-sitter/tree-sitter/releases/latest
+}
+
 pub fn get_ts_bin() !string {
 	println('Downloading `${utils.ts_bin}`...')
 
@@ -39,14 +43,14 @@ pub fn get_ts_bin() !string {
 		os.execute_opt('powershell -command Expand-Archive -LiteralPath ${archive}') or {
 			return error('Failed to extract archive `${archive}`. ${err}')
 		}
-		os.mv(archive.all_before_last('.'), utils.ts_bin)!
+		os.mv(archive.all_before_last('.'), utils.ts_bin_path)!
 		os.rm(archive)!
 	} $else {
 		os.execute_opt('gzip -d ${archive}') or {
 			return error('Failed to extract archive `${archive}`. ${err}')
 		}
-		os.mv(archive.all_before_last('.'), utils.ts_bin)!
-		os.posix_set_permission_bit(utils.ts_bin, os.s_ixusr, true)
+		os.mv(archive.all_before_last('.'), utils.ts_bin_path)!
+		os.posix_set_permission_bit(utils.ts_bin_path, os.s_ixusr, true)
 	}
 
 	return archive

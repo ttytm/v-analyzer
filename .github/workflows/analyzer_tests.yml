@@ -43,5 +43,9 @@ jobs:
         with:
           submodules: true
 
+      - name: Verify formatting
+        run: v fmt -verify -diff .
+
       - name: Run tests
+        if: always()
         run: v test .

@@ -53,8 +53,8 @@ pub mut:
 }
 
 // new_indexing_root creates a new indexing root with the given root and kind.
-pub fn new_indexing_root(root string, kind IndexingRootKind, cache_dir string) &IndexingRoot {
-	cache_file := 'v_analyzer_index_${md5.hexhash(root)}'
+pub fn new_indexing_root(root string, kind IndexingRootKind, cache_dir string, version string) &IndexingRoot {
+	cache_file := 'v_analyzer_index_${version}_${md5.hexhash(root)}'
 	return &IndexingRoot{
 		root: root
 		kind: kind

@@ -107,18 +107,21 @@ pub fn (mut ls LanguageServer) initialized(mut wr ResponseWriter) {
 
 	if need_index_stdlib {
 		if vmodules_root := ls.vmodules_root() {
-			ls.indexing_mng.indexer.add_indexing_root(vmodules_root, .modules, ls.cache_dir)
+			ls.indexing_mng.indexer.add_indexing_root(vmodules_root, .modules, ls.cache_dir,
+				server.build_commit)
 		}
 		if vlib_root := ls.vlib_root() {
-			ls.indexing_mng.indexer.add_indexing_root(vlib_root, .standard_library, ls.cache_dir)
+			ls.indexing_mng.indexer.add_indexing_root(vlib_root, .standard_library, ls.cache_dir,
+				server.build_commit)
 		}
 	}
 
 	if stubs_root := ls.stubs_root() {
-		ls.indexing_mng.indexer.add_indexing_root(stubs_root, .stubs, ls.cache_dir)
+		ls.indexing_mng.indexer.add_indexing_root(stubs_root, .stubs, ls.cache_dir, server.build_commit)
 	}
 
-	ls.indexing_mng.indexer.add_indexing_root(ls.root_uri.path(), .workspace, ls.cache_dir)
+	ls.indexing_mng.indexer.add_indexing_root(ls.root_uri.path(), .workspace, ls.cache_dir,
+		server.build_commit)
 
 	status := ls.indexing_mng.indexer.index(fn [mut work, mut ls] (root index.IndexingRoot, i int) {
 		percentage := (i * 70) / ls.indexing_mng.indexer.count_roots()

@@ -33,11 +33,11 @@ pub fn (i Indexer) count_roots() int {
 	return i.roots.len
 }
 
-pub fn (mut i Indexer) add_indexing_root(root string, kind index.IndexingRootKind, cache_dir string, version string) {
+pub fn (mut i Indexer) add_indexing_root(root string, kind index.IndexingRootKind, cache_dir string) {
 	loglib.with_fields({
 		'root': root
 	}).info('Adding indexing root')
-	i.roots << index.new_indexing_root(root, kind, cache_dir, version)
+	i.roots << index.new_indexing_root(root, kind, cache_dir)
 }
 
 pub fn (mut i Indexer) index(on_start fn (root index.IndexingRoot, index int)) IndexingRootsStatus {

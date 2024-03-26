@@ -11,7 +11,7 @@ module bindings
 #flag @VMODROOT/tree_sitter_v/bindings/core/lib/src/lib.c
 #include "tree_sitter/api.h"
 
-#flag -I @VMODROOT/tree_sitter_v/bindings
+#flag -I @VMODROOT/tree_sitter_v/bindings/src
 #flag -I @VMODROOT/tree_sitter_v/src
 #flag @VMODROOT/tree_sitter_v/src/parser.c
 #include "bindings.h"

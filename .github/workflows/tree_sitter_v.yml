@@ -57,7 +57,7 @@ jobs:
 
       - name: Run examples
         run: |
-          cd tree_sitter_v
+          cd tree_sitter_v/bindings
           exit_code=0
           for example in $(find -wholename '*/examples/*.v'); do
             v run $example

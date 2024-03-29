@@ -2,437 +2,234 @@ module psi
 
 pub fn create_element(node AstNode, containing_file &PsiFile) PsiElement {
 	base_node := new_psi_node(containing_file, node)
-
-	if node.type_name == .module_clause {
-		return ModuleClause{
-			PsiElementImpl: base_node
-		}
-	}
-
-	if node.type_name == .identifier {
-		return Identifier{
-			PsiElementImpl: base_node
-		}
-	}
-
-	if node.type_name == .plain_type {
-		return PlainType{
-			PsiElementImpl: base_node
-		}
-	}
-
-	if node.type_name == .selector_expression {
-		return SelectorExpression{
-			PsiElementImpl: base_node
-		}
-	}
-
-	if node.type_name == .for_statement {
-		return ForStatement{
-			PsiElementImpl: base_node
-		}
-	}
-
-	if node.type_name == .call_expression {
-		return CallExpression{
-			PsiElementImpl: base_node
-		}
-	}
-
-	if node.type_name == .argument {
-		return Argument{
-			PsiElementImpl: base_node
-		}
-	}
-
-	if node.type_name == .index_expression {
-		return IndexExpression{
-			PsiElementImpl: base_node
-		}
-	}
-
 	var := node_to_var_definition(node, containing_file, base_node)
 	if !isnil(var) {
 		return var
 	}
 
-	if node.type_name == .reference_expression {
-		return ReferenceExpression{
-			PsiElementImpl: base_node
+	match node.type_name {
+		.module_clause {
+			return ModuleClause{base_node}
 		}
-	}
-
-	if node.type_name == .type_reference_expression {
-		return TypeReferenceExpression{
-			PsiElementImpl: base_node
+		.identifier {
+			return Identifier{base_node}
 		}
-	}
-
-	if node.type_name == .type_declaration {
-		return TypeAliasDeclaration{
-			PsiElementImpl: base_node
+		.plain_type {
+			return PlainType{base_node}
 		}
-	}
-
-	if node.type_name == .type_initializer {
-		return TypeInitializer{
-			PsiElementImpl: base_node
+		.selector_expression {
+			return SelectorExpression{base_node}
 		}
-	}
-
-	if node.type_name == .field_name {
-		return FieldName{
-			PsiElementImpl: base_node
+		.for_statement {
+			return ForStatement{base_node}
 		}
-	}
-
-	if node.type_name == .function_declaration {
-		return FunctionOrMethodDeclaration{
-			PsiElementImpl: base_node
+		.call_expression {
+			return CallExpression{base_node}
 		}
-	}
-
-	if node.type_name == .receiver {
-		return Receiver{
-			PsiElementImpl: base_node
+		.argument {
+			return Argument{base_node}
 		}
-	}
-
-	if node.type_name == .struct_declaration {
-		return StructDeclaration{
-			PsiElementImpl: base_node
+		.index_expression {
+			return IndexExpression{base_node}
 		}
-	}
-
-	if node.type_name == .interface_declaration {
-		return InterfaceDeclaration{
-			PsiElementImpl: base_node
+		.reference_expression {
+			return ReferenceExpression{base_node}
 		}
-	}
-
-	if node.type_name == .interface_method_definition {
-		return InterfaceMethodDeclaration{
-			PsiElementImpl: base_node
+		.type_reference_expression {
+			return TypeReferenceExpression{base_node}
 		}
-	}
-
-	if node.type_name == .enum_declaration {
-		return EnumDeclaration{
-			PsiElementImpl: base_node
+		.type_declaration {
+			return TypeAliasDeclaration{base_node}
 		}
-	}
-
-	if node.type_name == .struct_field_declaration {
-		return FieldDeclaration{
-			PsiElementImpl: base_node
+		.type_initializer {
+			return TypeInitializer{base_node}
 		}
-	}
-
-	if node.type_name == .struct_field_scope {
-		return StructFieldScope{
-			PsiElementImpl: base_node
+		.field_name {
+			return FieldName{base_node}
 		}
-	}
-
-	if node.type_name == .enum_field_definition {
-		return EnumFieldDeclaration{
-			PsiElementImpl: base_node
+		.function_declaration {
+			return FunctionOrMethodDeclaration{base_node}
 		}
-	}
-
-	if node.type_name == .const_declaration {
-		return ConstantDeclaration{
-			PsiElementImpl: base_node
+		.receiver {
+			return Receiver{base_node}
 		}
-	}
-
-	if node.type_name == .const_definition {
-		return ConstantDefinition{
-			PsiElementImpl: base_node
+		.struct_declaration {
+			return StructDeclaration{base_node}
 		}
-	}
-
-	if node.type_name == .var_declaration {
-		return VarDeclaration{
-			PsiElementImpl: base_node
+		.interface_declaration {
+			return InterfaceDeclaration{base_node}
 		}
-	}
-
-	if node.type_name == .block {
-		return Block{
-			PsiElementImpl: base_node
+		.interface_method_definition {
+			return InterfaceMethodDeclaration{base_node}
 		}
-	}
-
-	if node.type_name == .mutable_expression {
-		return MutExpression{
-			PsiElementImpl: base_node
+		.enum_declaration {
+			return EnumDeclaration{base_node}
 		}
-	}
-
-	if node.type_name == .signature {
-		return Signature{
-			PsiElementImpl: base_node
+		.struct_field_declaration {
+			return FieldDeclaration{base_node}
 		}
-	}
-
-	if node.type_name == .parameter_list {
-		return ParameterList{
-			PsiElementImpl: base_node
+		.struct_field_scope {
+			return StructFieldScope{base_node}
 		}
-	}
-
-	if node.type_name == .parameter_declaration {
-		return ParameterDeclaration{
-			PsiElementImpl: base_node
+		.enum_field_definition {
+			return EnumFieldDeclaration{base_node}
 		}
-	}
-
-	if node.type_name == .literal {
-		return Literal{
-			PsiElementImpl: base_node
+		.const_declaration {
+			return ConstantDeclaration{base_node}
 		}
-	}
-
-	if node.type_name == .comment {
-		return Comment{
-			PsiElementImpl: base_node
+		.const_definition {
+			return ConstantDefinition{base_node}
 		}
-	}
-
-	if node.type_name == .mutability_modifiers {
-		return MutabilityModifiers{
-			PsiElementImpl: base_node
+		.var_declaration {
+			return VarDeclaration{base_node}
 		}
-	}
-
-	if node.type_name == .visibility_modifiers {
-		return VisibilityModifiers{
-			PsiElementImpl: base_node
+		.block {
+			return Block{base_node}
 		}
-	}
-
-	if node.type_name == .attributes {
-		return Attributes{
-			PsiElementImpl: base_node
+		.mutable_expression {
+			return MutExpression{base_node}
 		}
-	}
-
-	if node.type_name == .attribute {
-		return Attribute{
-			PsiElementImpl: base_node
+		.signature {
+			return Signature{base_node}
 		}
-	}
-
-	if node.type_name == .attribute_expression {
-		return AttributeExpression{
-			PsiElementImpl: base_node
+		.parameter_list {
+			return ParameterList{base_node}
 		}
-	}
-
-	if node.type_name == .value_attribute {
-		return ValueAttribute{
-			PsiElementImpl: base_node
+		.parameter_declaration {
+			return ParameterDeclaration{base_node}
 		}
-	}
-
-	if node.type_name == .range {
-		return Range{
-			PsiElementImpl: base_node
+		.literal {
+			return Literal{base_node}
 		}
-	}
-
-	if node.type_name == .interpreted_string_literal {
-		return StringLiteral{
-			PsiElementImpl: base_node
+		.line_comment {
+			return LineComment{base_node}
 		}
-	}
-
-	if node.type_name == .unsafe_expression {
-		return UnsafeExpression{
-			PsiElementImpl: base_node
+		.block_comment {
+			return BlockComment{base_node}
 		}
-	}
-
-	if node.type_name == .array_creation {
-		return ArrayCreation{
-			PsiElementImpl: base_node
+		.mutability_modifiers {
+			return MutabilityModifiers{base_node}
 		}
-	}
-
-	if node.type_name == .fixed_array_creation {
-		return ArrayCreation{
-			PsiElementImpl: base_node
-			is_fixed: true
+		.visibility_modifiers {
+			return VisibilityModifiers{base_node}
 		}
-	}
-
-	if node.type_name == .map_init_expression {
-		return MapInitExpression{
-			PsiElementImpl: base_node
+		.attributes {
+			return Attributes{base_node}
 		}
-	}
-
-	if node.type_name == .map_keyed_element {
-		return MapKeyedElement{
-			PsiElementImpl: base_node
+		.attribute {
+			return Attribute{base_node}
 		}
-	}
-
-	if node.type_name == .function_literal {
-		return FunctionLiteral{
-			PsiElementImpl: base_node
+		.attribute_expression {
+			return AttributeExpression{base_node}
 		}
-	}
-
-	if node.type_name == .if_expression {
-		return IfExpression{
-			PsiElementImpl: base_node
+		.value_attribute {
+			return ValueAttribute{base_node}
 		}
-	}
-
-	if node.type_name == .compile_time_if_expression {
-		return CompileTimeIfExpression{
-			PsiElementImpl: base_node
+		.range {
+			return Range{base_node}
 		}
-	}
-
-	if node.type_name == .match_expression {
-		return MatchExpression{
-			PsiElementImpl: base_node
+		.interpreted_string_literal {
+			return StringLiteral{base_node}
 		}
-	}
-
-	if node.type_name == .import_spec {
-		return ImportSpec{
-			PsiElementImpl: base_node
+		.unsafe_expression {
+			return UnsafeExpression{base_node}
 		}
-	}
-
-	if node.type_name == .qualified_type {
-		return QualifiedType{
-			PsiElementImpl: base_node
+		.array_creation {
+			return ArrayCreation{
+				PsiElementImpl: base_node
+			}
 		}
-	}
-
-	if node.type_name == .import_list {
-		return ImportList{
-			PsiElementImpl: base_node
+		.fixed_array_creation {
+			return ArrayCreation{
+				PsiElementImpl: base_node
+				is_fixed: true
+			}
 		}
-	}
-
-	if node.type_name == .import_declaration {
-		return ImportDeclaration{
-			PsiElementImpl: base_node
+		.map_init_expression {
+			return MapInitExpression{base_node}
 		}
-	}
-
-	if node.type_name == .import_path {
-		return ImportPath{
-			PsiElementImpl: base_node
+		.map_keyed_element {
+			return MapKeyedElement{base_node}
 		}
-	}
-
-	if node.type_name == .import_name {
-		return ImportName{
-			PsiElementImpl: base_node
+		.function_literal {
+			return FunctionLiteral{base_node}
 		}
-	}
-
-	if node.type_name == .import_alias {
-		return ImportAlias{
-			PsiElementImpl: base_node
+		.if_expression {
+			return IfExpression{base_node}
 		}
-	}
-
-	if node.type_name == .global_var_definition {
-		return GlobalVarDefinition{
-			PsiElementImpl: base_node
+		.compile_time_if_expression {
+			return CompileTimeIfExpression{base_node}
 		}
-	}
-
-	if node.type_name == .keyed_element {
-		return KeyedElement{
-			PsiElementImpl: base_node
+		.match_expression {
+			return MatchExpression{base_node}
 		}
-	}
-
-	if node.type_name == .generic_parameters {
-		return GenericParameters{
-			PsiElementImpl: base_node
+		.import_spec {
+			return ImportSpec{base_node}
 		}
-	}
-
-	if node.type_name == .generic_parameter {
-		return GenericParameter{
-			PsiElementImpl: base_node
+		.qualified_type {
+			return QualifiedType{base_node}
 		}
-	}
-
-	if node.type_name == .slice_expression {
-		return SliceExpression{
-			PsiElementImpl: base_node
+		.import_list {
+			return ImportList{base_node}
 		}
-	}
-
-	if node.type_name == .embedded_definition {
-		return EmbeddedDefinition{
-			PsiElementImpl: base_node
+		.import_declaration {
+			return ImportDeclaration{base_node}
 		}
-	}
-
-	if node.type_name == .or_block_expression {
-		return OrBlockExpression{
-			PsiElementImpl: base_node
+		.import_path {
+			return ImportPath{base_node}
 		}
-	}
-
-	if node.type_name == .option_propagation_expression {
-		return OptionPropagationExpression{
-			PsiElementImpl: base_node
+		.import_name {
+			return ImportName{base_node}
 		}
-	}
-
-	if node.type_name == .result_propagation_expression {
-		return ResultPropagationExpression{
-			PsiElementImpl: base_node
+		.import_alias {
+			return ImportAlias{base_node}
 		}
-	}
-
-	if node.type_name == .type_parameters {
-		return GenericTypeArguments{
-			PsiElementImpl: base_node
+		.global_var_definition {
+			return GlobalVarDefinition{base_node}
 		}
-	}
-
-	if node.type_name == .unary_expression {
-		return UnaryExpression{
-			PsiElementImpl: base_node
+		.keyed_element {
+			return KeyedElement{base_node}
 		}
-	}
-
-	if node.type_name == .binary_expression {
-		return BinaryExpression{
-			PsiElementImpl: base_node
+		.generic_parameters {
+			return GenericParameters{base_node}
 		}
-	}
-
-	if node.type_name == .source_file {
-		return SourceFile{
-			PsiElementImpl: base_node
+		.generic_parameter {
+			return GenericParameter{base_node}
 		}
-	}
-
-	if node.type_name == .static_method_declaration {
-		return StaticMethodDeclaration{
-			PsiElementImpl: base_node
+		.slice_expression {
+			return SliceExpression{base_node}
 		}
-	}
-
-	if node.type_name == .static_receiver {
-		return StaticReceiver{
-			PsiElementImpl: base_node
+		.embedded_definition {
+			return EmbeddedDefinition{base_node}
 		}
+		.or_block_expression {
+			return OrBlockExpression{base_node}
+		}
+		.option_propagation_expression {
+			return OptionPropagationExpression{base_node}
+		}
+		.result_propagation_expression {
+			return ResultPropagationExpression{base_node}
+		}
+		.type_parameters {
+			return GenericTypeArguments{base_node}
+		}
+		.unary_expression {
+			return UnaryExpression{base_node}
+		}
+		.binary_expression {
+			return BinaryExpression{base_node}
+		}
+		.source_file {
+			return SourceFile{base_node}
+		}
+		.static_method_declaration {
+			return StaticMethodDeclaration{base_node}
+		}
+		.static_receiver {
+			return StaticReceiver{base_node}
+		}
+		else {}
 	}
 
 	return base_node
